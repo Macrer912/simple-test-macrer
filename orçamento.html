@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento Uniformes Esportivos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Otimizar formulário para não precisar de scroll horizontal */
+        .form-table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        .form-table th:nth-child(1), 
+        .form-table td:nth-child(1) { 
+            width: 8%; 
+        }
+        
+        .form-table th:nth-child(2), 
+        .form-table td:nth-child(2) { 
+            width: 40%; 
+        }
+        
+        .form-table th:nth-child(3), 
+        .form-table td:nth-child(3) { 
+            width: 12%; 
+        }
+        
+        .form-table th:nth-child(4), 
+        .form-table td:nth-child(4) { 
+            width: 20%; 
+        }
+        
+        .form-table th:nth-child(5), 
+        .form-table td:nth-child(5) { 
+            width: 20%; 
+        }
+        
+        /* Responsividade melhorada */
+        @media (max-width: 768px) {
+            .form-table {
+                font-size: 0.75rem;
+            }
+            
+            .form-table td {
+                padding: 0.25rem !important;
+                vertical-align: middle;
+            }
+            
+            .form-table input[type="text"] {
+                font-size: 0.7rem;
+                padding: 0.15rem;
+                min-width: 0;
+            }
+            
+            .form-table input[type="radio"] {
+                transform: scale(0.75);
+                margin: 0 0.1rem;
+            }
+            
+            .size-selector {
+                gap: 0.1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .size-selector label {
+                font-size: 0.6rem;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                margin: 0;
+                padding: 0.1rem;
+            }
+        }
+        
+        /* Para telas pequenas */
+        @media (max-width: 640px) {
+            .form-table th:nth-child(1), 
+            .form-table td:nth-child(1) { 
+                width: 8%; 
+            }
+            
+            .form-table th:nth-child(2), 
+            .form-table td:nth-child(2) { 
+                width: 34%; 
+            }
+            
+            .form-table th:nth-child(3), 
+            .form-table td:nth-child(3) { 
+                width: 12%; 
+                text-align: center;
+            }
+            
+            .form-table th:nth-child(4), 
+            .form-table td:nth-child(4) { 
+                width: 23%; 
+            }
+            
+            .form-table th:nth-child(5), 
+            .form-table td:nth-child(5) { 
+                width: 23%; 
+            }
+            
+            .size-selector label {
+                font-size: 0.55rem;
+            }
+            
+            /* Texto do cabeçalho mais compacto */
+            .form-table th:nth-child(3) {
+                font-size: 0.7rem;
+                padding: 0.3rem !important;
+            }
+        }
+        
+        /* Para telas muito pequenas */
+        @media (max-width: 480px) {
+            .form-table {
+                font-size: 0.65rem;
+            }
+            
+            .form-table th:nth-child(1), 
+            .form-table td:nth-child(1) { 
+                width: 8%; 
+                font-size: 0.6rem;
+            }
+            
+            .form-table th:nth-child(2), 
+            .form-table td:nth-child(2) { 
+                width: 32%; 
+            }
+            
+            .form-table th:nth-child(3), 
+            .form-table td:nth-child(3) { 
+                width: 12%; 
+                font-size: 0.6rem;
+                padding: 0.25rem !important;
+            }
+            
+            .form-table th:nth-child(4), 
+            .form-table td:nth-child(4) { 
+                width: 24%; 
+            }
+            
+            .form-table th:nth-child(5), 
+            .form-table td:nth-child(5) { 
+                width: 24%; 
+            }
+            
+            .size-selector label {
+                font-size: 0.5rem;
+                padding: 0.05rem;
+            }
+            
+            .form-table input[type="text"] {
+                font-size: 0.6rem;
+                padding: 0.1rem;
+            }
+            
+            /* Ajustar especificamente o input de número */
+            .form-table td:nth-child(3) input[type="text"] {
+                width: 100% !important;
+                max-width: 30px;
+                font-size: 0.55rem;
+                text-align: center;
+                padding: 0.05rem;
+                margin: 0;
+            }
+        }
+        
+        /* Estilos para linhas dinâmicas */
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        tbody tr.hidden {
+            display: none !important;
+        }
+        
+        tbody tr.visible {
+            display: table-row !important;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilos para linhas desabilitadas (backup) */
+        tr.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            background-color: #f3f4f6;
+        }
+        
+        tr.disabled input {
+            background-color: #e5e7eb !important;
+            color: #9ca3af !important;
+            cursor: not-allowed !important;
+        }
+        
+        tr.disabled label {
+            opacity: 0.5;
+            cursor: not-allowed;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Seção 1: Personalizados no seu orçamento -->
+    <div class="bg-black text-yellow-400 p-4">
+        <div class="flex items-center">
+            <div class="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">1</div>
+            <h2 class="text-lg font-bold">PERSONALIZADOS NO SEU ORÇAMENTO</h2>
+        </div>
+        
+        <div class="mt-4 bg-gray-800 p-4 rounded">
+            <h3 class="font-semibold mb-3">PRODUTOS IMAGINÁRIOS</h3>
+            <div class="space-y-2">
+                <div class=" items-center justify-between">
+                    <div class=" items-center">
+                        <img id="thumbnailequipamento" src="wow" class="w-22 h-72 mr-3 rounded">
+                        <div>
+                            <span class="text-green-400">●</span>
+                            <span class="ml-2">Futebol Masculino - Camisa</span>
+                        </div>
+                    </div>
+                    <div class=" items-center">
+                        <button class="bg-red-500 text-white px-2 py-1 rounded text-sm mr-1" onclick="changeQuantity('camisa', -1)">-</button>
+                        <span class="mr-2 bg-white text-black px-3 py-1 rounded font-bold" id="qty-camisa">10</span>
+                        <button class="bg-green-500 text-white px-2 py-1 rounded text-sm" onclick="changeQuantity('camisa', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div style="left: 50vh;" class=" items-center justify-between">
+                    <div class="items-center">
+                        
+                        <div>
+                            <span class="text-green-400">●</span>
+                            <span class="ml-2">Futebol Masculino - Calção</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="bg-red-500 text-white px-2 py-1 rounded text-sm mr-1" onclick="changeQuantity('calcao', -1)">-</button>
+                        <span class="mr-2 bg-white text-black px-3 py-1 rounded font-bold" id="qty-calcao">10</span>
+                        <button class="bg-green-500 text-white px-2 py-1 rounded text-sm" onclick="changeQuantity('calcao', 1)">+</button>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulário de Cadastro do Uniforme -->
+    <div class="bg-white p-4 border-b-2 border-gray-200">
+        <div class="bg-gray-100 p-4 rounded">
+            <h3 class="font-bold text-center mb-4 text-lg">📄 FORMULÁRIO DE CADASTRO DO UNIFORME <span style="color: #059669; font-size: 14px;">(10 uniformes selecionados)</span></h3>
+            
+            <div class="bg-blue-50 border border-blue-200 p-3 rounded mb-4">
+                <div class="flex items-center text-blue-800">
+                    <span class="text-lg mr-2">💡</span>
+                    <span class="font-semibold text-sm">Interface Inteligente:</span>
+                </div>
+                <div class="text-blue-700 text-xs mt-1">
+                    Apenas as linhas necessárias são exibidas baseadas na quantidade selecionada. 
+                    Altere a quantidade acima para ver mais ou menos linhas.
+                </div>
+            </div>
+            
+            <div>
+                <table class="form-table w-full border-collapse border border-gray-400 text-sm">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="border border-gray-400 p-2 text-left">Nº</th>
+                            <th class="border border-gray-400 p-2 text-left">Nome do Jogador</th>
+                            <th class="border border-gray-400 p-2 text-center">Nº</th>
+                            <th class="border border-gray-400 p-2 text-center">Tam. Camisa</th>
+                            <th class="border border-gray-400 p-2 text-center">Tam. Calção</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-400 p-2">01</td>
+                            <td class="border border-gray-400 p-2">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <input type="text" class="w-12 border-none bg-transparent focus:outline-none text-center" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-01" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-01" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-01" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-01" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-01" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-01" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-01" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-01" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-01" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-01" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-01" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-01" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-2">02</td>
+                            <td class="border border-gray-400 p-2">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <input type="text" class="w-12 border-none bg-transparent focus:outline-none text-center" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-02" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-02" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-02" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-02" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-02" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-02" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-02" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-02" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-02" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-02" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-02" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-02" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-2">03</td>
+                            <td class="border border-gray-400 p-2">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <input type="text" class="w-12 border-none bg-transparent focus:outline-none text-center" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-03" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-03" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-03" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-03" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-03" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-03" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-03" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-03" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-03" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-03" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-03" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-03" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-2">04</td>
+                            <td class="border border-gray-400 p-2">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <input type="text" class="w-12 border-none bg-transparent focus:outline-none text-center" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-04" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-04" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-04" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-04" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-04" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-04" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="size-selector flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-04" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-04" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-04" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-04" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-04" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-04" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-2">05</td>
+                            <td class="border border-gray-400 p-2">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <input type="text" class="w-12 border-none bg-transparent focus:outline-none text-center" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer"><input type="radio" name="camisa-05" value="PP" class="mr-1">PP</label>
+                                    <label class="cursor-pointer"><input type="radio" name="camisa-05" value="P" class="mr-1">P</label>
+                                    <label class="cursor-pointer"><input type="radio" name="camisa-05" value="M" class="mr-1">M</label>
+                                    <label class="cursor-pointer"><input type="radio" name="camisa-05" value="G" class="mr-1">G</label>
+                                    <label class="cursor-pointer"><input type="radio" name="camisa-05" value="GG" class="mr-1">GG</label>
+                                    <label class="cursor-pointer"><input type="radio" name="camisa-05" value="EXG" class="mr-1">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-2 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer"><input type="radio" name="calcao-05" value="PP" class="mr-1">PP</label>
+                                    <label class="cursor-pointer"><input type="radio" name="calcao-05" value="P" class="mr-1">P</label>
+                                    <label class="cursor-pointer"><input type="radio" name="calcao-05" value="M" class="mr-1">M</label>
+                                    <label class="cursor-pointer"><input type="radio" name="calcao-05" value="G" class="mr-1">G</label>
+                                    <label class="cursor-pointer"><input type="radio" name="calcao-05" value="GG" class="mr-1">GG</label>
+                                    <label class="cursor-pointer"><input type="radio" name="calcao-05" value="EXG" class="mr-1">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">06</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-06" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-06" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-06" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-06" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-06" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-06" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-06" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-06" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-06" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-06" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-06" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-06" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">07</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-07" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-07" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-07" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-07" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-07" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-07" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-07" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-07" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-07" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-07" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-07" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-07" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">08</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-08" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-08" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-08" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-08" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-08" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-08" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-08" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-08" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-08" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-08" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-08" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-08" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">09</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-09" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-09" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-09" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-09" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-09" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-09" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-09" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-09" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-09" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-09" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-09" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-09" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">10</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-10" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-10" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-10" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-10" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-10" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-10" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-10" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-10" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-10" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-10" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-10" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-10" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">11</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-11" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-11" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-11" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-11" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-11" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-11" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-11" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-11" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-11" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-11" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-11" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-11" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">12</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-12" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-12" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-12" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-12" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-12" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-12" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-12" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-12" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-12" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-12" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-12" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-12" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">13</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-13" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-13" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-13" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-13" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-13" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-13" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-13" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-13" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-13" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-13" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-13" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-13" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">14</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-14" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-14" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-14" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-14" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-14" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-14" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-14" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-14" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-14" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-14" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-14" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-14" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">15</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-15" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-15" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-15" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-15" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-15" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-15" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-15" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-15" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-15" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-15" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-15" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-15" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">16</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-16" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-16" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-16" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-16" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-16" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-16" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-16" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-16" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-16" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-16" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-16" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-16" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">17</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-17" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-17" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-17" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-17" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-17" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-17" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-17" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-17" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-17" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-17" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-17" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-17" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">18</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-18" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-18" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-18" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-18" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-18" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-18" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-18" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-18" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-18" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-18" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-18" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-18" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">19</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-19" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-19" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-19" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-19" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-19" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-19" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-19" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-19" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-19" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-19" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-19" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-19" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-400 p-1">20</td>
+                            <td class="border border-gray-400 p-1">
+                                <input type="text" class="w-full border-none bg-transparent focus:outline-none text-xs" placeholder="Nome do jogador">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <input type="text" class="w-8 border-none bg-transparent focus:outline-none text-center text-xs" placeholder="Nº">
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-20" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-20" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-20" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-20" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-20" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="camisa-20" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                            <td class="border border-gray-400 p-1 text-center">
+                                <div class="flex flex-wrap justify-center gap-1 text-xs">
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-20" value="PP" class="mr-1 scale-75">PP</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-20" value="P" class="mr-1 scale-75">P</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-20" value="M" class="mr-1 scale-75">M</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-20" value="G" class="mr-1 scale-75">G</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-20" value="GG" class="mr-1 scale-75">GG</label>
+                                    <label class="cursor-pointer flex items-center"><input type="radio" name="calcao-20" value="EXG" class="mr-1 scale-75">EXG</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Goleiro -->
+    <div class="bg-black text-white p-4">
+        <div class="text-center mb-4">
+            <span class="text-yellow-400 text-xl font-bold">⚽ >KEEP IT< UNIFORME GOLEIRO ⚽</span>
+        </div>
+        
+        <div class="bg-gray-800 p-4 rounded" id="goleiro-section" style="display: none;">
+            <h4 class="text-yellow-400 font-bold mb-3 text-center">PRODUTOS GOLEIRO</h4>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <img src="keys/goleiro-camisa?prompt=camisa%20de%20goleiro%20verde%20e%20preta" class="w-12 h-12 mr-3 rounded">
+                        <div>
+                            <span class="text-green-400">●</span>
+                            <span class="ml-2">Goleiro Masculino - Camisa</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="bg-red-500 text-white px-2 py-1 rounded text-sm mr-1" onclick="changeQuantity('goleiro_camisa', -1)">-</button>
+                        <span class="mr-2 bg-white text-black px-3 py-1 rounded font-bold" id="qty-goleiro_camisa">1</span>
+                        <button class="bg-green-500 text-white px-2 py-1 rounded text-sm" onclick="changeQuantity('goleiro_camisa', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <img src="keys/goleiro-calcao?prompt=shorts%20de%20goleiro%20verde%20escuro" class="w-12 h-12 mr-3 rounded">
+                        <div>
+                            <span class="text-green-400">●</span>
+                            <span class="ml-2">Goleiro Masculino - Calção</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="bg-red-500 text-white px-2 py-1 rounded text-sm mr-1" onclick="changeQuantity('goleiro_calcao', -1)">-</button>
+                        <span class="mr-2 bg-white text-black px-3 py-1 rounded font-bold" id="qty-goleiro_calcao">1</span>
+                        <button class="bg-green-500 text-white px-2 py-1 rounded text-sm" onclick="changeQuantity('goleiro_calcao', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <button class="bg-red-600 text-white px-4 py-2 rounded font-bold" onclick="removeGoleiro()">
+                    🗑️ REMOVER UNIFORME GOLEIRO
+                </button>
+            </div>
+        </div>
+        
+        <div class="text-center" id="add-goleiro-btn">
+            <button class="bg-yellow-500 text-black px-6 py-3 rounded font-bold hover:bg-yellow-400 transition" onclick="addGoleiro()">
+                ➕ ADICIONAR UNIFORME GOLEIRO
+            </button>
+        </div>
+    </div>
+
+    <!-- Seção 2: Pacotes Futebol Masculino -->
+    <div class="bg-white p-4">
+        <div class="flex items-center mb-4">
+            <div class="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">2</div>
+            <h2 class="text-lg font-bold">PACOTES FUTEBOL MASCULINO</h2>
+        </div>
+        
+        <div class="bg-black text-white p-4 rounded mb-4">
+            <h4 class="text-center mb-4 font-bold">SELECIONE O PACOTE:</h4>
+            <div class="grid grid-cols-4 gap-2 text-center">
+                <button class="pacote-btn bg-gray-700 hover:bg-gray-600 p-2 rounded transition-all border-2 border-yellow-400" 
+                        data-pacote="prata" 
+                        data-preco-camisa="54.90" 
+                        data-preco-calcao="23.90"
+                        onclick="selecionarPacote('prata', 54.90, 23.90)">
+                    <div class="text-xs font-bold mb-1">PRATA</div>
+                    <div class="text-xs">Camisa: R$ 54,90</div>
+                    <div class="text-xs">Calção: R$ 23,90</div>
+                    <div class="text-xs mt-1 text-yellow-400">Conjunto: R$ 78,80</div>
+                </button>
+                <button class="pacote-btn bg-yellow-600 hover:bg-yellow-500 p-2 rounded transition-all border-2 border-transparent text-black" 
+                        data-pacote="ouro" 
+                        data-preco-camisa="64.90" 
+                        data-preco-calcao="28.90"
+                        onclick="selecionarPacote('ouro', 64.90, 28.90)">
+                    <div class="text-xs font-bold mb-1">OURO</div>
+                    <div class="text-xs">Camisa: R$ 64,90</div>
+                    <div class="text-xs">Calção: R$ 28,90</div>
+                    <div class="text-xs mt-1 text-orange-600">Conjunto: R$ 93,80</div>
+                </button>
+                <button class="pacote-btn bg-orange-600 hover:bg-orange-500 p-2 rounded transition-all border-2 border-transparent" 
+                        data-pacote="premium" 
+                        data-preco-camisa="74.90" 
+                        data-preco-calcao="33.90"
+                        onclick="selecionarPacote('premium', 74.90, 33.90)">
+                    <div class="text-xs font-bold mb-1">PREMIUM</div>
+                    <div class="text-xs">Camisa: R$ 74,90</div>
+                    <div class="text-xs">Calção: R$ 33,90</div>
+                    <div class="text-xs mt-1 text-yellow-400">Conjunto: R$ 108,80</div>
+                </button>
+                <button class="pacote-btn bg-blue-600 hover:bg-blue-500 p-2 rounded transition-all border-2 border-transparent" 
+                        data-pacote="promax" 
+                        data-preco-camisa="84.90" 
+                        data-preco-calcao="38.90"
+                        onclick="selecionarPacote('promax', 84.90, 38.90)">
+                    <div class="text-xs font-bold mb-1">PRO MAX</div>
+                    <div class="text-xs">Camisa: R$ 84,90</div>
+                    <div class="text-xs">Calção: R$ 38,90</div>
+                    <div class="text-xs mt-1 text-cyan-400">Conjunto: R$ 123,80</div>
+                </button>
+            </div>
+            <div class="text-center mt-3">
+                <span class="text-green-400 font-bold" id="pacote-selecionado">📦 PACOTE APLICADO: PRATA</span>
+            </div>
+        </div>
+
+        <!-- Produtos com preços -->
+        <div class="bg-gray-100 p-4 rounded">
+            <div class="text-center mb-4">
+                <h3 class="text-2xl font-bold text-gray-600" id="pacote-titulo">PACOTE - PRATA</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="space-y-4">
+                        <div class="text-orange-500 font-bold">VALOR CAMISA:</div>
+                        <div class="space-y-1 text-sm" id="caracteristicas-camisa">
+                            <div>• TECIDO DRY SOFT</div>
+                            <div>• SUBLIMAÇÃO TOTAL</div>
+                            <div>• ELASTANO E POLIAMIDA</div>
+                            <div>• SELO AUTENTICO OFICIAL</div>
+                            <div>• 5 OPÇÕES DE GOLA</div>
+                            <div>• 2 OPÇÕES DE MANGA</div>
+                        </div>
+                        
+                        <div class="text-orange-500 font-bold mt-4">VALOR CALÇÃO:</div>
+                        <div class="space-y-1 text-sm" id="caracteristicas-calcao">
+                            <div>• TECIDO POLIESTER</div>
+                            <div>• CORDÃO DE REGULAGEM</div>
+                            <div>• BOLSOS INTERNOS</div>
+                            <div>• SUBLIMAÇÃO TOTAL</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+            <div class="grid grid-cols-4 gap-4 mt-6 text-center">
+                <div class="bg-white p-3 rounded shadow">
+                    <div class="text-sm text-gray-600">VALOR CAMISA</div>
+                    <div class="text-lg font-bold" id="preco-camisa-display">R$ 54,90</div>
+                </div>
+                <div class="bg-white p-3 rounded shadow">
+                    <div class="text-sm text-gray-600">VALOR CALÇÃO</div>
+                    <div class="text-lg font-bold" id="preco-calcao-display">R$ 23,90</div>
+                </div>
+                <div class="bg-white p-3 rounded shadow">
+                    <div class="text-sm text-gray-600">VALOR JOGO</div>
+                    <div class="text-lg font-bold" id="preco-jogo-display">R$ 78,80</div>
+                </div>
+                <div class="bg-white p-3 rounded shadow">
+                    <div class="text-sm text-gray-600">ECONOMIA</div>
+                    <div class="text-lg font-bold text-green-600" id="economia-display">R$ 0,00</div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    <strong>✅ PACOTE APLICADO AUTOMATICAMENTE!</strong>
+                    <br>
+                    <span class="text-sm">O orçamento foi atualizado com os preços do pacote selecionado.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 3: Valores da Proposta -->
+    <div class="bg-white p-4 mt-4">
+        <div class="flex items-center mb-4">
+            <div class="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">3</div>
+            <h2 class="text-lg font-bold">VALORES DA PROPOSTA</h2>
+        </div>
+        
+        <div class="space-y-3">
+            <div class="flex justify-between items-center bg-gray-50 p-3 rounded">
+                <span>Futebol Masculino - Camisa</span>
+                <div class="flex items-center">
+                    <span class="mr-4">QTD: <span id="display-qty-camisa">10</span></span>
+                    <span class="font-bold text-red-600" id="total-camisa">R$ 549,00</span>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center bg-gray-50 p-3 rounded">
+                <span>Futebol Masculino - Calção</span>
+                <div class="flex items-center">
+                    <span class="mr-4">QTD: <span id="display-qty-calcao">10</span></span>
+                    <span class="font-bold text-red-600" id="total-calcao">R$ 239,00</span>
+                </div>
+            </div>
+            
+            <!-- Seção Goleiro (inicialmente oculta) -->
+            <div id="goleiro-valores" style="display: none;">
+                <div class="flex justify-between items-center bg-yellow-50 p-3 rounded border-2 border-yellow-400">
+                    <span>Goleiro Masculino - Camisa</span>
+                    <div class="flex items-center">
+                        <span class="mr-4">QTD: <span id="display-qty-goleiro_camisa">0</span></span>
+                        <span class="font-bold text-green-600" id="total-goleiro_camisa">R$ 0,00</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center bg-yellow-50 p-3 rounded border-2 border-yellow-400 mt-2">
+                    <span>Goleiro Masculino - Calção</span>
+                    <div class="flex items-center">
+                        <span class="mr-4">QTD: <span id="display-qty-goleiro_calcao">0</span></span>
+                        <span class="font-bold text-green-600" id="total-goleiro_calcao">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="mt-4 p-4 bg-orange-500 text-white rounded">
+            <div class="text-center">
+                <div class="text-sm">VALOR TOTAL</div>
+                <div class="text-3xl font-bold" id="valor-total">R$ 788,00</div>
+            </div>
+        </div>
+        
+        <button class="w-full bg-gray-600 text-white py-3 rounded mt-4 font-bold">
+            GOSTOU DO NOSSO ORÇAMENTO?
+        </button>
+    </div>
+
+    <!-- Seção 4: Escolha a forma de envio -->
+    <div class="bg-white p-4 mt-4">
+        <div class="flex items-center mb-4">
+            <div class="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">4</div>
+            <h2 class="text-lg font-bold">ESCOLHA A FORMA DE ENVIO DO ORÇAMENTO</h2>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <button class="bg-green-500 text-white py-4 px-6 rounded font-bold flex items-center justify-center hover:bg-green-600 transition" id="whatsapp-btn">
+                📱 VIA WHATSAPP
+            </button>
+            <button class="bg-blue-500 text-white py-4 px-6 rounded font-bold flex items-center justify-center hover:bg-blue-600 transition" id="pix-btn">
+                💳 PAGAMENTO PIX
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Preços unitários
+        const precos = {
+            camisa: 54.90,
+            calcao: 23.90,
+            goleiro_camisa: 64.90,
+            goleiro_calcao: 29.90
+        };
+        
+        // Quantidades atuais
+        let quantidades = {
+            camisa: 10,
+            calcao: 10,
+            goleiro_camisa: 0,
+            goleiro_calcao: 0
+        };
+        
+        // Estado do goleiro
+        let goleiroAdicionado = false;
+        
+        // Pacote selecionado
+        let pacoteSelecionado = {
+            nome: 'prata',
+            precoCamisa: 54.90,
+            precoCalcao: 23.90,
+            aplicado: true // PRATA é o padrão inicial
+        };
+        
+        // Função para selecionar pacote
+        function selecionarPacote(nome, precoCamisa, precoCalcao) {
+            pacoteSelecionado = {
+                nome: nome,
+                precoCamisa: precoCamisa,
+                precoCalcao: precoCalcao,
+                aplicado: true // Aplicar automaticamente
+            };
+            
+            // Atualizar visual dos botões
+            document.querySelectorAll('.pacote-btn').forEach(btn => {
+                btn.classList.remove('border-yellow-400');
+                btn.classList.add('border-transparent');
+            });
+            
+            // Destacar pacote selecionado
+            const botaoSelecionado = document.querySelector(`[data-pacote="${nome}"]`);
+            botaoSelecionado.classList.add('border-yellow-400');
+            botaoSelecionado.classList.remove('border-transparent');
+            
+            // Atualizar texto do pacote selecionado
+            document.getElementById('pacote-selecionado').textContent = `📦 PACOTE APLICADO: ${nome.toUpperCase()}`;
+            
+            // Atualizar título do pacote
+            document.getElementById('pacote-titulo').textContent = `PACOTE - ${nome.toUpperCase()}`;
+            
+            // Atualizar preços na área de características
+            document.getElementById('preco-camisa-display').textContent = `R$ ${precoCamisa.toFixed(2).replace('.', ',')}`;
+            document.getElementById('preco-calcao-display').textContent = `R$ ${precoCalcao.toFixed(2).replace('.', ',')}`;
+            document.getElementById('preco-jogo-display').textContent = `R$ ${(precoCamisa + precoCalcao).toFixed(2).replace('.', ',')}`;
+            
+            // Calcular economia em relação ao PRO MAX
+            const economiaValor = (123.80 - (precoCamisa + precoCalcao));
+            document.getElementById('economia-display').textContent = `R$ ${economiaValor.toFixed(2).replace('.', ',')}`;
+            
+            // Atualizar características baseadas no pacote
+            atualizarCaracteristicasPacote(nome);
+            
+            // APLICAR AUTOMATICAMENTE AO ORÇAMENTO
+            // Atualizar preços globais
+            precos.camisa = precoCamisa;
+            precos.calcao = precoCalcao;
+            
+            // Recalcular totais
+            const totalCamisa = (quantidades.camisa * precos.camisa).toFixed(2);
+            const totalCalcao = (quantidades.calcao * precos.calcao).toFixed(2);
+            
+            document.getElementById('total-camisa').textContent = 'R$ ' + totalCamisa.replace('.', ',');
+            document.getElementById('total-calcao').textContent = 'R$ ' + totalCalcao.replace('.', ',');
+            
+            // Atualizar total geral
+            atualizarTotalGeral();
+            
+            // Atualização silenciosa - sem alerta
+        }
+        
+        // Função para atualizar características do pacote
+        function atualizarCaracteristicasPacote(nome) {
+            const caracteristicasCamisa = document.getElementById('caracteristicas-camisa');
+            const caracteristicasCalcao = document.getElementById('caracteristicas-calcao');
+            
+            switch(nome) {
+                case 'prata':
+                    caracteristicasCamisa.innerHTML = `
+                        <div>• TECIDO DRY SOFT</div>
+                        <div>• SUBLIMAÇÃO TOTAL</div>
+                        <div>• ELASTANO E POLIAMIDA</div>
+                        <div>• SELO AUTENTICO OFICIAL</div>
+                        <div>• 5 OPÇÕES DE GOLA</div>
+                        <div>• 2 OPÇÕES DE MANGA</div>
+                    `;
+                    caracteristicasCalcao.innerHTML = `
+                        <div>• TECIDO POLIESTER</div>
+                        <div>• CORDÃO DE REGULAGEM</div>
+                        <div>• BOLSOS INTERNOS</div>
+                        <div>• SUBLIMAÇÃO TOTAL</div>
+                    `;
+                    break;
+                    
+                case 'ouro':
+                    caracteristicasCamisa.innerHTML = `
+                        <div>• TECIDO DRY SOFT PREMIUM</div>
+                        <div>• SUBLIMAÇÃO DE ALTA QUALIDADE</div>
+                        <div>• ELASTANO E POLIAMIDA EXTRA</div>
+                        <div>• SELO EXCLUSIVO BORDADO</div>
+                        <div>• 7 OPÇÕES DE GOLA</div>
+                        <div>• 3 OPÇÕES DE MANGA</div>
+                    `;
+                    caracteristicasCalcao.innerHTML = `
+                        <div>• TECIDO POLIESTER PREMIUM</div>
+                        <div>• CORDÃO ANTI-BACTERIANO</div>
+                        <div>• BOLSOS COM ZÍPER</div>
+                        <div>• SUBLIMAÇÃO DOURADA</div>
+                    `;
+                    break;
+                    
+                case 'premium':
+                    caracteristicasCamisa.innerHTML = `
+                        <div>• TECIDO PREMIUM ULTRA DRY</div>
+                        <div>• SUBLIMAÇÃO PROFISSIONAL</div>
+                        <div>• FIBRA TECNOLÓGICA AVANÇADA</div>
+                        <div>• BADGES PERSONALIZADOS</div>
+                        <div>• GOLA PERSONALIZADA</div>
+                        <div>• MANGA ERGONÔMICA</div>
+                    `;
+                    caracteristicasCalcao.innerHTML = `
+                        <div>• TECIDO ANTI-SUOR</div>
+                        <div>• SISTEMA DE VENTILAÇÃO</div>
+                        <div>• BOLSOS FUNCIONAIS</div>
+                        <div>• DESIGN EXCLUSIVO</div>
+                    `;
+                    break;
+                    
+                case 'promax':
+                    caracteristicasCamisa.innerHTML = `
+                        <div>• TECIDO PROFISSIONAL FIFA</div>
+                        <div>• TECNOLOGIA ANTI-MICROBIANA</div>
+                        <div>• FIBRAS INTELIGENTES</div>
+                        <div>• SELO OFICIAL CBFS</div>
+                        <div>• DESIGN PERSONALIZADO</div>
+                        <div>• CORTE ANATÔMICO</div>
+                    `;
+                    caracteristicasCalcao.innerHTML = `
+                        <div>• TECIDO RESPIRÁVEL PRO</div>
+                        <div>• SISTEMA ANTI-ODOR</div>
+                        <div>• BOLSOS MULTIFUNCIONAIS</div>
+                        <div>• TECNOLOGIA CLIMACOOL</div>
+                    `;
+                    break;
+            }
+        }
+        
+        // Função para aplicar pacote ao orçamento
+        function aplicarPacote() {
+            if (pacoteSelecionado.aplicado) {
+                alert('⚠️ Este pacote já está aplicado ao orçamento!');
+                return;
+            }
+            
+            // Atualizar preços globais
+            precos.camisa = pacoteSelecionado.precoCamisa;
+            precos.calcao = pacoteSelecionado.precoCalcao;
+            
+            // Recalcular totais
+            const totalCamisa = (quantidades.camisa * precos.camisa).toFixed(2);
+            const totalCalcao = (quantidades.calcao * precos.calcao).toFixed(2);
+            
+            document.getElementById('total-camisa').textContent = 'R$ ' + totalCamisa.replace('.', ',');
+            document.getElementById('total-calcao').textContent = 'R$ ' + totalCalcao.replace('.', ',');
+            
+            // Atualizar total geral
+            atualizarTotalGeral();
+            
+            // Marcar como aplicado
+            pacoteSelecionado.aplicado = true;
+            
+            alert(`✅ Pacote ${pacoteSelecionado.nome.toUpperCase()} aplicado com sucesso ao orçamento!`);
+        }
+        
+        // Função para alterar quantidade
+        function changeQuantity(produto, mudanca) {
+            quantidades[produto] += mudanca;
+            
+            // Para produtos de goleiro, quantidade mínima é 1, para outros é 10
+            if (produto.includes('goleiro')) {
+                if (quantidades[produto] < 1) {
+                    quantidades[produto] = 1;
+                }
+            } else {
+                if (quantidades[produto] < 10) {
+                    quantidades[produto] = 10;
+                }
+            }
+            
+            // Limitar quantidade máxima
+            if (quantidades[produto] > 999) {
+                quantidades[produto] = 999;
+            }
+            
+            // Atualizar displays
+            document.getElementById('qty-' + produto).textContent = quantidades[produto];
+            document.getElementById('display-qty-' + produto).textContent = quantidades[produto];
+            
+            // Calcular e atualizar total do produto
+            const total = (quantidades[produto] * precos[produto]).toFixed(2);
+            document.getElementById('total-' + produto).textContent = 'R$ ' + total.replace('.', ',');
+            
+            // Atualizar total geral
+            atualizarTotalGeral();
+            
+            // Atualizar disponibilidade do formulário baseado na quantidade de camisas
+            atualizarDisponibilidadeFormulario();
+        }
+        
+        // Função para atualizar disponibilidade do formulário
+        function atualizarDisponibilidadeFormulario() {
+            const quantidadeMaxima = quantidades.camisa; // Baseado na quantidade de camisas
+            const totalLinhas = 20; // Total de linhas na tabela
+            
+            for (let i = 1; i <= totalLinhas; i++) {
+                const numeroFormatado = i.toString().padStart(2, '0');
+                const linha = document.querySelector(`tbody tr:nth-child(${i})`);
+                
+                if (i <= quantidadeMaxima) {
+                    // Mostrar e habilitar linha
+                    linha.style.display = 'table-row';
+                    linha.style.opacity = '1';
+                    linha.style.pointerEvents = 'auto';
+                    linha.style.backgroundColor = '';
+                    
+                    // Habilitar todos os inputs da linha
+                    const inputs = linha.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.disabled = false;
+                        input.style.backgroundColor = '';
+                        input.style.color = '';
+                        input.style.cursor = '';
+                    });
+                    
+                    // Habilitar labels dos radio buttons
+                    const labels = linha.querySelectorAll('label');
+                    labels.forEach(label => {
+                        label.style.opacity = '1';
+                        label.style.cursor = 'pointer';
+                        label.style.color = '';
+                    });
+                    
+                } else {
+                    // Esconder linha completamente
+                    linha.style.display = 'none';
+                    
+                    // Limpar dados da linha escondida
+                    const inputs = linha.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.value = '';
+                        input.checked = false;
+                        input.disabled = true;
+                    });
+                }
+            }
+            
+            // Atualizar indicador visual no título do formulário
+            const tituloFormulario = document.querySelector('h3');
+            if (tituloFormulario && tituloFormulario.textContent.includes('FORMULÁRIO')) {
+                tituloFormulario.innerHTML = `📄 FORMULÁRIO DE CADASTRO DO UNIFORME <span style="color: #059669; font-size: 14px;">(${quantidadeMaxima} uniformes selecionados)</span>`;
+            }
+        }
+        
+        // Função para atualizar total geral
+        function atualizarTotalGeral() {
+            const totalCamisa = quantidades.camisa * precos.camisa;
+            const totalCalcao = quantidades.calcao * precos.calcao;
+            const totalGoleiroCamisa = quantidades.goleiro_camisa * precos.goleiro_camisa;
+            const totalGoleiroCalcao = quantidades.goleiro_calcao * precos.goleiro_calcao;
+            
+            const totalGeral = (totalCamisa + totalCalcao + totalGoleiroCamisa + totalGoleiroCalcao).toFixed(2);
+            document.getElementById('valor-total').textContent = 'R$ ' + totalGeral.replace('.', ',');
+        }
+        
+        // Função para adicionar uniforme de goleiro
+        function addGoleiro() {
+            goleiroAdicionado = true;
+            quantidades.goleiro_camisa = 1;
+            quantidades.goleiro_calcao = 1;
+            
+            // Mostrar seção do goleiro
+            document.getElementById('goleiro-section').style.display = 'block';
+            document.getElementById('add-goleiro-btn').style.display = 'none';
+            document.getElementById('goleiro-valores').style.display = 'block';
+            
+            // Atualizar displays
+            document.getElementById('qty-goleiro_camisa').textContent = quantidades.goleiro_camisa;
+            document.getElementById('qty-goleiro_calcao').textContent = quantidades.goleiro_calcao;
+            document.getElementById('display-qty-goleiro_camisa').textContent = quantidades.goleiro_camisa;
+            document.getElementById('display-qty-goleiro_calcao').textContent = quantidades.goleiro_calcao;
+            
+            // Atualizar totais
+            const totalGoleiroCamisa = (quantidades.goleiro_camisa * precos.goleiro_camisa).toFixed(2);
+            const totalGoleiroCalcao = (quantidades.goleiro_calcao * precos.goleiro_calcao).toFixed(2);
+            document.getElementById('total-goleiro_camisa').textContent = 'R$ ' + totalGoleiroCamisa.replace('.', ',');
+            document.getElementById('total-goleiro_calcao').textContent = 'R$ ' + totalGoleiroCalcao.replace('.', ',');
+            
+            // Atualizar total geral
+            atualizarTotalGeral();
+            
+            // Mostrar notificação
+            alert('✅ Uniforme de Goleiro adicionado ao orçamento!');
+        }
+        
+        // Função para remover uniforme de goleiro
+        function removeGoleiro() {
+            goleiroAdicionado = false;
+            quantidades.goleiro_camisa = 0;
+            quantidades.goleiro_calcao = 0;
+            
+            // Ocultar seção do goleiro
+            document.getElementById('goleiro-section').style.display = 'none';
+            document.getElementById('add-goleiro-btn').style.display = 'block';
+            document.getElementById('goleiro-valores').style.display = 'none';
+            
+            // Atualizar total geral
+            atualizarTotalGeral();
+            
+            // Mostrar notificação
+            alert('🗑️ Uniforme de Goleiro removido do orçamento!');
+        }
+        
+        // Função para gerar dados PIX
+        function gerarPix() {
+            const total = document.getElementById('valor-total').textContent;
+            const valorNumerico = total.replace('R$ ', '').replace(',', '.');
+            
+            // Dados PIX
+            const chavePix = "edenilfreitas202@gmail.com"; // Sua chave PIX
+            const nomeBeneficiario = "EDENIL FREITAS"; // Nome do beneficiário
+            const cidadeBeneficiario = "SÃO PAULO"; // Cidade
+            const valorPix = parseFloat(valorNumerico);
+            
+            // Criar código PIX (simulação - use uma biblioteca real para produção)
+            const dadosPix = {
+                chave: chavePix,
+                valor: valorPix,
+                nome: nomeBeneficiario,
+                cidade: cidadeBeneficiario,
+                descricao: "Pagamento Uniformes Esportivos",
+                identificador: `UNI${Date.now().toString().slice(-6)}`
+            };
+            
+            return dadosPix;
+        }
+        
+        // Função para gerar QR Code simulado
+        function gerarQRCode(dadosPix) {
+            // Esta é uma simulação - em produção use uma biblioteca real como qrcode.js
+            const qrData = `00020101021126${dadosPix.chave.length.toString().padStart(2, '0')}${dadosPix.chave}5204000053039865402${dadosPix.valor.toFixed(2)}5925${dadosPix.nome}6009${dadosPix.cidade}62070503***6304`;
+            return qrData;
+        }
+        
+        // Função para copiar chave PIX
+        function copiarChavePix(chave) {
+            navigator.clipboard.writeText(chave).then(function() {
+                // Feedback visual de sucesso
+                const botaoCopiar = event.target;
+                const textoOriginal = botaoCopiar.innerHTML;
+                botaoCopiar.innerHTML = '✅ COPIADO!';
+                botaoCopiar.style.backgroundColor = '#10b981';
+                
+                setTimeout(() => {
+                    botaoCopiar.innerHTML = textoOriginal;
+                    botaoCopiar.style.backgroundColor = '#10b981';
+                }, 2000);
+                
+                // Mostrar toast de confirmação
+                mostrarToast('Chave PIX copiada com sucesso!', 'success');
+            }, function(err) {
+                mostrarToast('Erro ao copiar chave PIX', 'error');
+            });
+        }
+        
+        // Função para mostrar toast
+        function mostrarToast(mensagem, tipo) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                max-width: 300px;
+                word-wrap: break-word;
+            `;
+            
+            if (tipo === 'success') {
+                toast.style.backgroundColor = '#10b981';
+                toast.innerHTML = `✅ ${mensagem}`;
+            } else {
+                toast.style.backgroundColor = '#ef4444';
+                toast.innerHTML = `❌ ${mensagem}`;
+            }
+            
+            // Adicionar animação
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(toast);
+            
+            // Remover depois de 3 segundos
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Adicionar interatividade aos outros botões
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botão WhatsApp
+            document.getElementById('whatsapp-btn').addEventListener('click', function() {
+                const total = document.getElementById('valor-total').textContent;
+                
+                // Gerar ID único para o orçamento
+                const idOrcamento = `ORC${Date.now().toString().slice(-6)}`;
+                
+                // Capturar a página e enviar via WhatsApp Web com imagem
+                capturarEEnviarWhatsApp(idOrcamento, total, false);
+            });
+            
+            // Botão PIX
+            document.getElementById('pix-btn').addEventListener('click', function() {
+                // Adicionar feedback visual ao botão
+                const botaoPix = this;
+                botaoPix.style.transform = 'scale(0.95)';
+                botaoPix.innerHTML = '⏳ GERANDO PIX...';
+                
+                setTimeout(() => {
+                    botaoPix.style.transform = 'scale(1)';
+                    botaoPix.innerHTML = '💳 PAGAMENTO PIX';
+                    
+                    const dadosPix = gerarPix();
+                    const total = document.getElementById('valor-total').textContent;
+                    const qrCode = gerarQRCode(dadosPix);
+                    
+                    // Criar modal PIX
+                    const modal = document.createElement('div');
+                    modal.setAttribute('data-modal-pix', 'true');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.8);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1000;
+                        animation: fadeIn 0.3s ease-out;
+                    `;
+                    
+                    modal.innerHTML = `
+                        <div style="background: white; padding: 30px; border-radius: 15px; height:70% max-width: 450px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); animation: slideUp 0.3s ease-out;">
+                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 10px; border-radius: 50%; margin-right: 10px;">
+                                    <span style="font-size: 24px;">💳</span>
+                                </div>
+                                <h3 style="color: #1f2937; margin: 0; font-size: 24px; font-weight: bold;">Pagamento PIX</h3>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                                <div style="font-size: 16px; margin-bottom: 8px; opacity: 0.9;">Valor Total:</div>
+                                <div style="font-size: 36px; font-weight: bold;">${total}</div>
+                                <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">ID: ${dadosPix.identificador}</div>
+                            </div>
+                            
+                            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: left; border: 1px solid #e2e8f0;">
+                                <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 10px;">
+                                    <span style="font-size: 14px; color: #4a5568; font-weight: 600;">🔑 Chave PIX:</span>
+                                </div>
+                                <div style="font-size: 13px; color: #2d3748; word-break: break-all; background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">${dadosPix.chave}</div>
+                                <div style="margin-top: 12px;">
+                                    <span style="font-size: 14px; color: #4a5568; font-weight: 600;">👤 Beneficiário:</span>
+                                </div>
+                                <div style="font-size: 13px; color: #2d3748; background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0; margin-top: 4px;">${dadosPix.nome}</div>
+                            </div>
+                            
+                            
+                            
+                            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <button id="btn-copiar-pix" data-chave="${dadosPix.chave}" style="flex: 1; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s; font-size: 13px;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                    📋 COPIAR CHAVE PIX
+                                </button>
+                                <button id="btn-fechar-pix" style="flex: 1; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s; font-size: 13px;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                    ❌ FECHAR
+                                </button>
+                            </div>
+                            
+                            <div style="background: #ecfdf5; border: 1px solid #10b981; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+                                <div style="color: #059669; font-size: 13px; font-weight: 600; margin-bottom: 4px;">💡 Instruções de Pagamento:</div>
+                                <div style="color: #047857; font-size: 11px; line-height: 1.4;">
+                                    1. Copie a chave PIX ou escaneie o QR Code<br>
+                                    2. Faça o pagamento no seu app bancário<br>
+                                    3. Envie o comprovante via WhatsApp
+                                </div>
+                            </div>
+                            
+                            <button onclick="enviarComprovanteWhatsApp('${dadosPix.identificador}')" style="width: 100%; background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                📲 ENVIAR COMPROVANTE VIA WHATSAPP
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Adicionar animações CSS
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes fadeIn {
+                            from { opacity: 0; }
+                            to { opacity: 1; }
+                        }
+                        @keyframes fadeOut {
+                            from { opacity: 1; }
+                            to { opacity: 0; }
+                        }
+                        @keyframes slideUp {
+                            from { transform: translateY(30px); opacity: 0; }
+                            to { transform: translateY(0); opacity: 1; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    document.body.appendChild(modal);
+                    
+                    // Fechar modal clicando fora
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            modal.style.animation = 'fadeOut 0.3s ease-out';
+                            setTimeout(() => modal.remove(), 300);
+                        }
+                    });
+                    
+                    // Adicionar eventos aos botões do modal
+                    const btnFecharPix = modal.querySelector('#btn-fechar-pix');
+                    const btnCopiarPix = modal.querySelector('#btn-copiar-pix');
+                    
+                    // Evento para fechar modal
+                    btnFecharPix.addEventListener('click', function() {
+                        modal.style.animation = 'fadeOut 0.3s ease-out';
+                        setTimeout(() => modal.remove(), 300);
+                    });
+                    
+                    // Evento para copiar chave PIX
+                    btnCopiarPix.addEventListener('click', function() {
+                        const chave = this.getAttribute('data-chave');
+                        navigator.clipboard.writeText(chave).then(function() {
+                            // Feedback visual de sucesso
+                            const textoOriginal = btnCopiarPix.innerHTML;
+                            btnCopiarPix.innerHTML = '✅ COPIADO!';
+                            btnCopiarPix.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                            
+                            setTimeout(() => {
+                                btnCopiarPix.innerHTML = textoOriginal;
+                                btnCopiarPix.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                            }, 2000);
+                            
+                            // Mostrar toast de confirmação
+                            mostrarToast('Chave PIX copiada com sucesso!', 'success');
+                        }).catch(function(err) {
+                            mostrarToast('Erro ao copiar chave PIX', 'error');
+                        });
+                    });
+                    
+                    // Adicionar função para enviar comprovante
+                    window.enviarComprovanteWhatsApp = function(idTransacao) {
+                        // Fechar modal PIX primeiro
+                        const modalPix = document.querySelector('[data-modal-pix="true"]');
+                        if (modalPix) {
+                            modalPix.style.animation = 'fadeOut 0.3s ease-out';
+                            setTimeout(() => modalPix.remove(), 300);
+                        }
+                        
+                        // Capturar screenshot da página após fechar o modal
+                        setTimeout(() => {
+                            capturarEEnviarWhatsApp(idTransacao, total, true);
+                        }, 500);
+                    };
+                    
+                    // Função unificada para capturar e enviar via WhatsApp
+                    function capturarEEnviarWhatsApp(idTransacao, total, isPagamentoPix = false) {
+                        mostrarToast('📸 Capturando seção dos produtos...', 'success');
+                        
+                        // Usar html2canvas para capturar a página inteira
+                        if (typeof html2canvas === 'undefined') {
+                            // Carregar html2canvas dinamicamente
+                            const script = document.createElement('script');
+                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                            script.onload = function() {
+                                processarCapturaEEnvio(idTransacao, total, isPagamentoPix);
+                            };
+                            document.head.appendChild(script);
+                        } else {
+                            processarCapturaEEnvio(idTransacao, total, isPagamentoPix);
+                        }
+                    }
+                    
+                    // Função para coletar dados do formulário
+                    function coletarDadosFormulario() {
+                        const jogadores = [];
+                        const totalLinhas = 20; // Temos 20 linhas na tabela
+                        
+                        for (let i = 1; i <= totalLinhas; i++) {
+                            const numeroFormatado = i.toString().padStart(2, '0');
+                            
+                            // Buscar campos de entrada
+                            const inputNome = document.querySelector(`tbody tr:nth-child(${i}) td:nth-child(2) input`);
+                            const inputNumero = document.querySelector(`tbody tr:nth-child(${i}) td:nth-child(3) input`);
+                            const radioCamisa = document.querySelector(`input[name="camisa-${numeroFormatado}"]:checked`);
+                            const radioCalcao = document.querySelector(`input[name="calcao-${numeroFormatado}"]:checked`);
+                            
+                            const nome = inputNome ? inputNome.value.trim() : '';
+                            const numero = inputNumero ? inputNumero.value.trim() : '';
+                            const tamanhoCamisa = radioCamisa ? radioCamisa.value : '';
+                            const tamanhoCalcao = radioCalcao ? radioCalcao.value : '';
+                            
+                            // Só adicionar se pelo menos o nome estiver preenchido
+                            if (nome) {
+                                jogadores.push({
+                                    posicao: numeroFormatado,
+                                    nome: nome,
+                                    numero: numero || 'Não informado',
+                                    tamanhoCamisa: tamanhoCamisa || 'Não selecionado',
+                                    tamanhoCalcao: tamanhoCalcao || 'Não selecionado'
+                                });
+                            }
+                        }
+                        
+                        return jogadores;
+                    }
+                    
+                    // Função para processar a captura e envio
+                    function processarCapturaEEnvio(idTransacao, total, isPagamentoPix = false) {
+                        // Capturar apenas a seção "PERSONALIZADOS NO SEU ORÇAMENTO"
+                        const secaoPersonalizados = document.querySelector('.bg-black.text-yellow-400');
+                        
+                        if (!secaoPersonalizados) {
+                            mostrarToast('❌ Seção não encontrada', 'error');
+                            return;
+                        }
+                        
+                        // Configurações otimizadas para capturar apenas a seção específica
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight;
+                        const secaoRect = secaoPersonalizados.getBoundingClientRect();
+                        const secaoWidth = secaoRect.width;
+                        const secaoHeight = secaoRect.height;
+                        
+                        // Calcular escala para manter largura adequada para WhatsApp
+                        const targetWidth = Math.min(800, secaoWidth); // Largura ideal para WhatsApp
+                        const scaleX = targetWidth / secaoWidth;
+                        const scaleY = scaleX; // Manter proporção
+                        
+                        const opcoes = {
+                            height: secaoHeight + 40, // Altura da seção + margem
+                            width: secaoWidth + 40, // Largura da seção + margem
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#000000', // Fundo preto como na imagem
+                            scale: Math.min(scaleX, 1.5), // Escala otimizada para legibilidade
+                            scrollX: 0,
+                            scrollY: 0,
+                            onclone: function(clonedDoc) {
+                                // Otimizar apenas a seção específica
+                                const clonedBody = clonedDoc.body;
+                                clonedBody.style.margin = '0';
+                                clonedBody.style.padding = '20px';
+                                clonedBody.style.background = '#000000';
+                                clonedBody.style.fontSize = '16px';
+                                clonedBody.style.lineHeight = '1.5';
+                                
+                                // Esconder todas as outras seções
+                                const todasSecoes = clonedDoc.querySelectorAll('body > *');
+                                todasSecoes.forEach(secao => {
+                                    if (!secao.classList.contains('bg-black') || !secao.classList.contains('text-yellow-400')) {
+                                        secao.style.display = 'none';
+                                    }
+                                });
+                                
+                                // Melhorar contraste da seção alvo
+                                const secaoAlvo = clonedDoc.querySelector('.bg-black.text-yellow-400');
+                                if (secaoAlvo) {
+                                    secaoAlvo.style.margin = '0';
+                                    secaoAlvo.style.border = 'none';
+                                    secaoAlvo.style.borderRadius = '12px';
+                                    secaoAlvo.style.fontSize = '16px';
+                                    secaoAlvo.style.lineHeight = '1.5';
+                                    
+                                    // Melhorar visibilidade dos textos
+                                    const textos = secaoAlvo.querySelectorAll('*');
+                                    textos.forEach(el => {
+                                        if (el.style.color && el.style.color.includes('gray')) {
+                                            el.style.color = '#ffffff';
+                                        }
+                                    });
+                                }
+                            }
+                        };
+                        
+                       html2canvas(secaoPersonalizados, {
+    scale: 2.5, // aumenta a resolução do canvas original
+    useCORS: true,
+    allowTaint: false
+}).then(function(canvas) {
+    // Criar canvas otimizado com resolução aumentada
+    const canvasOtimizado = document.createElement('canvas');
+    const ctx = canvasOtimizado.getContext('2d');
+
+    // Aumentar resolução final para melhor legibilidade
+    const scaleFactor = 2.5;
+    const originalWidth = canvas.width;
+    const originalHeight = canvas.height;
+
+    const newWidth = originalWidth * scaleFactor;
+    const newHeight = originalHeight * scaleFactor;
+
+    canvasOtimizado.width = newWidth;
+    canvasOtimizado.height = newHeight;
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(canvas, 0, 0, newWidth, newHeight);
+
+                            
+                            // Converter canvas otimizado para blob com qualidade ajustada
+                            canvasOtimizado.toBlob(function(blob) {
+                                // Criar arquivo da imagem
+                                const arquivo = new File([blob], `orcamento-${idTransacao}.png`, { 
+                                    type: 'image/png' 
+                                });
+                                
+                                console.log(`🖼️ Seção capturada: ${newWidth}x${newHeight}px (${(blob.size / 1024).toFixed(2)}KB)`);
+                                
+                                // Coletar dados do formulário
+                                const jogadores = coletarDadosFormulario();
+                                
+                                // Preparar lista de jogadores para a mensagem
+                                let listaJogadores = '';
+                                if (jogadores.length > 0) {
+                                    listaJogadores = '\n\n📄 LISTA DE JOGADORES:\n';
+                                    jogadores.forEach((jogador, index) => {
+                                        listaJogadores += `${index + 1}. ${jogador.nome} | Nº${jogador.numero} | Camisa: ${jogador.tamanhoCamisa} | Calção: ${jogador.tamanhoCalcao}\n`;
+                                    });
+                                } else {
+                                    listaJogadores = '\n\n📄 FORMULÁRIO: Aguardando preenchimento dos nomes e tamanhos';
+                                }
+                                
+                                // Informações do pacote detalhadas
+                                const infoPacote = `\n\n📦 DETALHES DO PACOTE ${pacoteSelecionado.nome.toUpperCase()}:
+• Camisa: R$ ${pacoteSelecionado.precoCamisa.toFixed(2).replace('.', ',')} cada
+• Calção: R$ ${pacoteSelecionado.precoCalcao.toFixed(2).replace('.', ',')} cada
+• Conjunto: R$ ${(pacoteSelecionado.precoCamisa + pacoteSelecionado.precoCalcao).toFixed(2).replace('.', ',')}
+
+🎯 ESPECIFICAÇÕES TÉCNICAS:
+CAMISA: Tecido Dry Soft, Sublimação Total, Elastano e Poliamida, Selo Autêntico
+CALÇÃO: Tecido Poliéster, Cordão de Regulagem, Bolsos Internos, Sublimação Total`;
+                                
+                                // Informações de produção
+                                const infoProducao = `\n\n🏭 INFORMAÇÕES PARA PRODUÇÃO:
+• Total de Camisas: ${quantidades.camisa} unidades
+• Total de Calções: ${quantidades.calcao} unidades`;
+                                
+                                let infoGoleiro = '';
+                                if (goleiroAdicionado) {
+                                    infoGoleiro = `\n• Camisa Goleiro: ${quantidades.goleiro_camisa} unidades
+• Calção Goleiro: ${quantidades.goleiro_calcao} unidades`;
+                                }
+                                
+                                // Cálculo detalhado
+                                const calculoDetalhado = `\n\n💰 CÁLCULO DETALHADO:
+• Camisas: ${quantidades.camisa} x R$ ${pacoteSelecionado.precoCamisa.toFixed(2).replace('.', ',')} = R$ ${(quantidades.camisa * pacoteSelecionado.precoCamisa).toFixed(2).replace('.', ',')}
+• Calções: ${quantidades.calcao} x R$ ${pacoteSelecionado.precoCalcao.toFixed(2).replace('.', ',')} = R$ ${(quantidades.calcao * pacoteSelecionado.precoCalcao).toFixed(2).replace('.', ',')}`;
+                                
+                                let calculoGoleiro = '';
+                                if (goleiroAdicionado) {
+                                    calculoGoleiro = `\n• Camisa Goleiro: ${quantidades.goleiro_camisa} x R$ ${precos.goleiro_camisa.toFixed(2).replace('.', ',')} = R$ ${(quantidades.goleiro_camisa * precos.goleiro_camisa).toFixed(2).replace('.', ',')}
+• Calção Goleiro: ${quantidades.goleiro_calcao} x R$ ${precos.goleiro_calcao.toFixed(2).replace('.', ',')} = R$ ${(quantidades.goleiro_calcao * precos.goleiro_calcao).toFixed(2).replace('.', ',')}`;
+                                }
+                                
+                                // Preparar mensagem baseada no tipo (versão completa)
+                                let mensagem;
+                                if (isPagamentoPix) {
+                                    mensagem = `Olá! Acabei de fazer o pagamento PIX do orçamento de uniformes esportivos.
+
+💳 COMPROVANTE PIX
+🆔 ID: ${idTransacao}
+💰 Valor: ${total}
+📅 Data: ${new Date().toLocaleDateString('pt-BR')}
+✅ Status: Pagamento Realizado${listaJogadores}${infoPacote}${infoProducao}${infoGoleiro}${calculoDetalhado}${calculoGoleiro}
+
+🎯 TOTAL GERAL: ${total}
+
+📸 Segue anexo o print dos produtos selecionados e enviarei também o comprovante PIX.
+
+Aguardo confirmação para iniciar produção!`;
+                                } else {
+                                    mensagem = `Olá! Gostaria de solicitar o orçamento de uniformes esportivos.
+
+📋 RESUMO DO ORÇAMENTO
+🆔 ID: ${idTransacao}
+💰 Valor: ${total}
+📅 Data: ${new Date().toLocaleDateString('pt-BR')}
+📦 Pacote: ${pacoteSelecionado.nome.toUpperCase()}${listaJogadores}${infoPacote}${infoProducao}${infoGoleiro}${calculoDetalhado}${calculoGoleiro}
+
+🎯 TOTAL GERAL: ${total}
+
+📸 Segue anexo o print dos produtos selecionados.
+
+Aguardo retorno para prosseguir com o pedido!`;
+                                }
+                                
+                                // Criar link para download da imagem da seção
+                                const link = document.createElement('a');
+                                link.download = `produtos-selecionados-${idTransacao}.png`;
+                                link.href = canvasOtimizado.toDataURL('image/png', 0.95);
+                                
+                                // Fazer download automático
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                                
+                                // Enviar via WhatsApp Web tradicional
+                                enviarViaWhatsAppWeb(mensagem, canvasOtimizado);
+                                
+                            }, 'image/png', 0.9);
+                            
+                        }).catch(function(error) {
+                            console.error('Erro ao capturar seção:', error);
+                            mostrarToast('❌ Erro ao capturar seção', 'error');
+                            
+                            // Fallback sem imagem - mensagem completa
+                            const jogadoresFallback = coletarDadosFormulario();
+                            let listaJogadoresFallback = '';
+                            if (jogadoresFallback.length > 0) {
+                                listaJogadoresFallback = '\n\n📄 LISTA DE JOGADORES:\n';
+                                jogadoresFallback.forEach((jogador, index) => {
+                                    listaJogadoresFallback += `${index + 1}. ${jogador.nome} | Nº${jogador.numero} | Camisa: ${jogador.tamanhoCamisa} | Calção: ${jogador.tamanhoCalcao}\n`;
+                                });
+                            }
+                            
+                            const infoPacoteFallback = `\n\n📦 DETALHES DO PACOTE ${pacoteSelecionado.nome.toUpperCase()}:
+• Camisa: R$ ${pacoteSelecionado.precoCamisa.toFixed(2).replace('.', ',')} cada
+• Calção: R$ ${pacoteSelecionado.precoCalcao.toFixed(2).replace('.', ',')} cada
+• Conjunto: R$ ${(pacoteSelecionado.precoCamisa + pacoteSelecionado.precoCalcao).toFixed(2).replace('.', ',')}`;
+                            
+                            let mensagemFallback;
+                            if (isPagamentoPix) {
+                                mensagemFallback = `Olá! Acabei de fazer o pagamento PIX do orçamento de uniformes esportivos.
+
+💰 Valor: ${total}
+🔖 ID: ${idTransacao}
+📦 Pacote: ${pacoteSelecionado.nome.toUpperCase()}${listaJogadoresFallback}${infoPacoteFallback}
+
+🎯 TOTAL GERAL: ${total}
+
+Enviarei o comprovante PIX em seguida. Aguardo confirmação!`;
+                            } else {
+                                mensagemFallback = `Olá! Gostaria de solicitar o orçamento de uniformes esportivos.
+
+💰 Valor: ${total}
+🔖 ID: ${idTransacao}
+📦 Pacote: ${pacoteSelecionado.nome.toUpperCase()}${listaJogadoresFallback}${infoPacoteFallback}
+
+🎯 TOTAL GERAL: ${total}
+
+Aguardo retorno para prosseguir com o pedido!`;
+                            }
+                            
+                            const whatsappUrl = `https://wa.me/5592984387234?text=${encodeURIComponent(mensagemFallback)}`;
+                            window.open(whatsappUrl, '_blank');
+                        });
+                    }
+                    
+                    // Função para enviar via WhatsApp Web com imagem
+                    function enviarViaWhatsAppWeb(mensagem, canvasOtimizado) {
+                        // Converter canvas otimizado para data URL
+                        const imgData = canvasOtimizado.toDataURL('image/png', 0.9);
+                        
+                        // Preparar URL do WhatsApp
+                        const whatsappUrl = `https://wa.me/5592984387234?text=${encodeURIComponent(mensagem)}`;
+                        
+                        // Mostrar modal com o screenshot otimizado
+                        mostrarModalScreenshot(imgData, whatsappUrl, 'screenshot-' + Date.now());
+                    }
+                    
+
+                    
+                    // Função para mostrar modal com o screenshot
+                    function mostrarModalScreenshot(imgData, whatsappUrl, idTransacao, imagemOrcamento) {
+                        const modalScreenshot = document.createElement('div');
+                        modalScreenshot.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0,0,0,0.9);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 10000;
+                            animation: fadeIn 0.3s ease-out;
+                        `;
+                        
+                        modalScreenshot.innerHTML = `
+                            <div style="background: white; padding: 30px; border-radius: 15px; max-width: 80%; max-height: 80%; text-align: center; overflow: auto;">
+                                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 24px; font-weight: bold;">📸 Print dos Produtos Capturado</h3>
+                                
+                                <div style="background: #f3f4f6; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                                    <p style="color: #374151; margin-bottom: 10px;">✅ Screenshot da seção de produtos foi capturado com sucesso!</p>
+                                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 8px;">ID: ${idTransacao}</p>
+                                    <div style="background: #e5e7eb; padding: 8px; border-radius: 6px; word-break: break-all;">
+                                        <p style="color: #4b5563; font-size: 12px; margin-bottom: 4px;">🖼️ Imagem do orçamento:</p>
+                                        <div style="background: #f3f4f6; padding: 8px; border-radius: 4px; margin-top: 4px; font-size: 10px; color: #374151;">
+                                            📱 Imagem será gerada automaticamente no WhatsApp
+                                        </div>
+                                        <p style="color: #1f2937; font-size: 11px; font-family: monospace; margin-top: 4px; word-break: break-all;">${imagemOrcamento}</p>
+                                    </div>
+                                </div>
+                                
+                                <div style="max-height: 500px; overflow: auto; border: 2px solid #e5e7eb; border-radius: 10px; margin-bottom: 20px; background: #f9fafb;">
+                                    <img src="${imgData}" style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Print da página otimizado para WhatsApp">
+                                </div>
+                                
+                                <div style="background: #ecfdf5; border: 1px solid #10b981; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+                                    <div style="color: #059669; font-size: 13px; font-weight: 600; margin-bottom: 4px;">📱 Seção Otimizada para WhatsApp:</div>
+                                    <div style="color: #047857; font-size: 11px; line-height: 1.4;">
+                                        ✅ Apenas a seção dos produtos selecionados<br>
+                                        ✅ Imagem compacta e legível<br>
+                                        ✅ Tamanho ideal para WhatsApp (não fica comprida)
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 10px; justify-content: center;">
+                                    <button id="btn-whatsapp-screenshot" data-url="${whatsappUrl}" style="background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                        📲 ENVIAR VIA WHATSAPP
+                                    </button>
+                                    <button id="btn-fechar-screenshot" style="background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                        ❌ FECHAR
+                                    </button>
+                                </div>
+                                
+                                <div style="margin-top: 15px; font-size: 12px; color: #6b7280;">
+                                    💡 A imagem foi baixada automaticamente e otimizada para WhatsApp.<br>
+                                    📱 Tamanho ideal para visualização na tela do WhatsApp.<br>
+                                    🖼️ Faça upload da imagem baixada no WhatsApp.
+                                </div>
+                            </div>
+                        `;
+                        
+                        document.body.appendChild(modalScreenshot);
+                        
+                        // Fechar modal clicando fora
+                        modalScreenshot.addEventListener('click', function(e) {
+                            if (e.target === modalScreenshot) {
+                                modalScreenshot.remove();
+                            }
+                        });
+                        
+                        // Adicionar eventos aos botões do modal screenshot
+                        const btnWhatsappScreenshot = modalScreenshot.querySelector('#btn-whatsapp-screenshot');
+                        const btnFecharScreenshot = modalScreenshot.querySelector('#btn-fechar-screenshot');
+                        
+                        // Evento para enviar via WhatsApp
+                        btnWhatsappScreenshot.addEventListener('click', function() {
+                            const url = this.getAttribute('data-url');
+                            window.open(url, '_blank');
+                            mostrarToast('Redirecionando para WhatsApp...', 'success');
+                            modalScreenshot.remove();
+                        });
+                        
+                        // Evento para fechar modal screenshot
+                        btnFecharScreenshot.addEventListener('click', function() {
+                            modalScreenshot.remove();
+                        });
+                        
+                        mostrarToast('📸 Seção capturada! Imagem compacta baixada automaticamente', 'success');
+                    }
+                    
+                }, 500);
+            });
+            
+            // Outros botões
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.textContent.includes('GOSTOU')) {
+                    button.addEventListener('click', function() {
+                        const total = document.getElementById('valor-total').textContent;
+                        alert(`Ótimo! Seu orçamento atual é de ${total}. Use os botões abaixo para enviar via WhatsApp ou pagar via PIX.`);
+                    });
+                }
+            });
+        });
+        
+        // Adicionar efeitos visuais nos botões de quantidade
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityButtons = document.querySelectorAll('button[onclick*="changeQuantity"]');
+            quantityButtons.forEach(button => {
+                button.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                button.addEventListener('mouseup', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Inicializar características do pacote padrão (PRATA)
+            atualizarCaracteristicasPacote('prata');
+            
+            // Inicializar disponibilidade do formulário
+            atualizarDisponibilidadeFormulario();
+        });
+    </script>
+
+    <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const thumb = sessionStorage.getItem('thumbnailEquipamento');
+    if (thumb) {
+      const img = document.getElementById('thumbnailequipamento');
+      if (img) {
+        img.src = thumb;
+      }
+      sessionStorage.removeItem('thumbnailEquipamento');
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1520 @@
+@font-face {
+  font-family: Esporte2 ;
+  src: url(fonts/sylfaen.ttf);
+
+}
+@font-face {
+  font-family: Esporte1 ;
+  src: url(fonts/real-madrid-19-20.ttf);
+}
+
+body {
+  background-color: rgb(228, 228, 228);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.area{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+
+
+
+.boneco {
+  z-index: -1;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 81%;
+  width: 170px;
+  margin-left: -2vh;
+  margin-top: -2%;
+  
+}
+
+.botoesesquerdo {
+  position: absolute;
+  top: 24%;
+  left: 1.4%;
+}
+
+.botaofechar img {
+  cursor: pointer;
+  width: 20px;
+  position: absolute;
+  left: 80%;
+}
+
+.botoesesquerdo img {
+  height: 10vh;
+  width: 10vh;
+}
+
+.digitarnome input {
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+}
+.digitarnumero input {
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.digitarnome {
+  width: 90px;
+  height: 40px;
+  position:absolute;
+  top: 50.9vh;
+  right: 2.5%;
+}
+.digitarnumero {
+  position:absolute;
+  top: 83%;
+  right: 2.5%;
+  width: 90px;
+  height: 40px;  
+}
+
+
+.botaoesquerdo2 {
+  position: absolute;
+  top: 6vh;
+  right:5.4%;
+  height: 110px;
+}
+
+.botoesdireito button {
+  height: 90%;
+  width: 90%;
+}
+.botoesdireito img {
+  height: 7vh;
+  width: 14vh;
+}
+
+.titulomenu {
+  border: 2px solid brown;
+  bottom: 100%;
+  height: 42px;
+  width:88px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 11px;
+}
+
+.botaoesquerdo2 button {
+  width: 120%;
+  height:40%;
+  border-radius: 20px;
+}
+
+.botoesesquerdo ul {
+  padding: 0px;
+}
+
+.botoesdireito {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 22%;
+  right: 1.0%;
+}
+
+.atendimento {
+  position: absolute;
+  top: 10%;
+  left:6%;
+}
+
+.atendimento img {
+  width: 170px;
+}
+
+.botaofechar {
+  left: 47%;
+  top:-12px;
+  height: 40px;
+  width: 40px;  background-color: transparent;
+  border: none;
+}
+
+.botaofechar:hover {
+  cursor: pointer;
+  transition:  0.3s ease;
+  scale: 1.1;
+}
+
+.botaofecharcor {
+  height: 40px;
+  width: 40px;  background-color: transparent;
+  border: none;
+}
+
+.botaofecharcor:hover {
+  cursor: pointer;
+  transition:  0.3s ease;
+  scale: 1.1;
+}
+
+.botaofecharcor img {
+  cursor: pointer;
+  width: 3vh;
+  position: absolute;
+}
+
+.botoesdireito ul {
+  position: absolute;
+
+  list-style: none;
+  padding-right: 59%;
+  bottom: 3%;  
+}
+
+ ul img {
+  width: 35px;
+}
+
+ svg {
+  height: 79vh;
+  right:-5vh;
+  position: absolute;
+}
+
+
+.bonecofrente,
+.bonecocosta {
+  position: absolute;
+  top: 3%;
+  left: 19%;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.bonecocosta {
+  opacity: 0;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.mudarboneco {
+  margin-bottom: 20px;
+  position: absolute;
+  top: 5%;
+}
+
+.mudarboneco button {
+  cursor: pointer;
+  width: 110px;
+  height: 50px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .bonecofrente,
+  .bonecocosta {
+      position: absolute;
+      width: 100%;
+      height: auto;
+  }
+}
+
+
+
+.jogador *  {
+  position: absolute;
+}
+
+.jogador {
+  position: absolute;
+  width: 10vh;
+  height: 120px;
+  top: 15.5%;
+  left: 0.9vh;
+  z-index: 10;
+}
+
+.nomecosta  {
+  width: 180%;
+  left: -40%;
+  top: 19.2px;
+  align-items: center;
+  font-size: 3.7vh;
+  color: black;
+  align-self: center;
+  text-align: center; 
+  font-family: "Esporte1";
+  overflow: hidden;
+  -webkit-text-stroke: 2px black;
+}
+
+
+
+.numerocosta {
+  width: 115%;
+  left: -8%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  top:53px;
+  font-size: 10.1vh;
+  color: black;
+  overflow: hidden;
+  font-family:"Esporte1";
+  /* Ensure the filter is applied directly to the text */
+  filter: none; /* Reset any inherited filters */
+  -webkit-text-stroke: 2px black;
+  transform:scaleX(1.3)
+
+}
+
+.numerocalc {
+  width: 140px;
+   height: 170px;
+  position: absolute;
+  right: 55.9%;
+  top:300px;
+  align-items: center;
+  font-size: 2.3em;
+  color: black;
+  text-align: center;
+  overflow: hidden;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  z-index: 3;
+  /* Ensure the filter is applied directly to the text */
+  filter: none; /* Reset any inherited filters */
+}
+
+.camisas {
+  background-color: #d2d2d2;
+    display: block;
+  font-family: Arial, sans-serif;
+  height: 420px;
+  overflow: scroll;
+  position: absolute;
+  
+
+}
+
+
+.camisas img {
+  border-radius: 300px;
+  width: 110px;
+  height: 110px;
+  margin: 17px;
+  margin-top: 20px;
+  
+  
+  
+}
+.calcoes img {
+ border-radius: 300px;
+  width: 110px;
+  height: 110px;
+  margin: 17px;
+  margin-top: 20px;
+  
+  
+}
+
+.areaequipamentomenu {
+  z-index: 120;
+    left: 4%;
+    top: 54%;
+    transition: display 0.3s ease;
+    display: none; /* Hidden by default */
+    -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.calcoes {
+  background-color: rgb(212, 212, 212);
+  display: block;
+  font-family: Arial, sans-serif;
+  overflow: scroll;
+  position: absolute;
+}
+
+.camisas, .calcoes {
+    transition: display 0.3s ease;
+    width: 100%;
+    height: 420px;
+}
+
+#btnCamisa, #btnCalcao {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+
+
+#paletadecores {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: auto;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#mostrarcamisa img {
+  height: 9.1vh; 
+  width: 8.5vh;
+  top:9%;
+  position: absolute;
+  border-radius: 500px;
+  -webkit-box-shadow: 3px 1px 5px 5px #000000; 
+    box-shadow: 2px 2px 15px 5px #000000;
+}
+#mostrarcamisa2 img {
+  height: 9.1vh; 
+  width: 8.5vh;
+  top:60%;
+  right: 4px;
+  position: absolute;
+  border-radius: 500px;
+  -webkit-box-shadow: 3px 1px 5px 5px #000000; 
+    box-shadow: 2px 2px 15px 5px #000000;
+}
+#mostrarcalcao img {
+  height: 7vh; 
+  width: 7vh;
+  top:50%;
+  position: absolute;
+}
+
+.opcao {
+  height: 20px;
+  border: 2px solid red;
+}
+
+.opcao * {
+  position: absolute;
+}
+
+#menucores {
+  display: none;
+  position: absolute;
+  left: 22vh;
+  bottom: 19vh;
+  z-index: 1002;
+}
+
+#menucores.active {
+  display: block;
+  position: absolute;
+}
+#menucorescamisa {
+  display: none;
+  position: absolute;
+  left: 2vh;
+  top:46vh;
+  z-index: 1002;
+}
+
+#menucorescamisa * {
+  position: absolute;
+}
+
+#menucorescamisa.active {
+  display: block;
+  position: absolute;
+}
+#menucorescalcao {
+  display: none;
+  position: absolute;
+  left: 2vh;
+  top:46vh;
+  z-index: 1002;
+  transition: all 0.3s ease;
+}
+#menucorescalcao button:hover {
+  transition: all 0.3s ease;
+  border-radius: 20px;
+}
+#menucorescalcao button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#menucorescalcao *{
+  position: absolute;
+}
+
+#menucorescalcao.active {
+  display: block;
+  position: absolute;
+}
+#menucoresgola {
+  display: none;
+  position: absolute;
+  left: 2vh;
+  top:46vh;
+  z-index: 1002;
+}
+
+#menucoresgola.active {
+  display: block;
+  position: absolute;
+}
+
+#menucoresgola * {
+  position: absolute;
+}
+
+#menucoresnumero {
+  display: none;
+  position: absolute;
+  left: 2vh;
+  top:46vh; 
+  z-index: 1002;
+}
+
+#menucoresnumero.active {
+  display: block;
+  position: absolute;
+}
+
+#menucoresnumero *{
+  position: absolute;
+}
+
+#paletadecores.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecores button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+#paletadecorescalcao {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescalcao.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescalcao button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+#paletadecoresmeiao {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecoresmeiao.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecoresmeiao button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+#paletadecoresmanga {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecoresmanga.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecoresmanga button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+#paletadecoresgola {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecoresgola.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecoresgola button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+#paletadecorespunho {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorespunho.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorespunho button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+#paletadecorescamarte1 {
+  display: none;
+  overflow: hidden;
+  position: absolute;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescamarte1.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescamarte1 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+
+
+#paletadecorescamarte2 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescamarte2.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescamarte2 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+
+
+#paletadecorescamarte3 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescamarte3.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescamarte3 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+/* Arte Calção */
+#paletadecorescalcarte1 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescalcarte1.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescalcarte1 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+
+
+#paletadecorescalcarte2 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescalcarte2.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescalcarte2 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+
+
+#paletadecorescalcarte3 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecorescalcarte3.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecorescalcarte3 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+#paletadecoresmangarte1 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecoresmangarte1.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecoresmangarte1 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+
+
+#paletadecoresmangarte2 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecoresmangarte2.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecoresmangarte2 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+
+
+#paletadecoresmangarte3 {
+  top: 10px;
+  right: 10px;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  width: 210px; 
+  height: 220px;
+}
+
+#paletadecoresmangarte3.active {
+  z-index: 1000;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;}
+
+#paletadecoresmangarte3 button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+    /* Add a more visible border for better UX */
+  border: 1px solid #ccc;
+}
+
+
+#corescalcfundo {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#corescalcfundo button {
+  transition: ease-in-out 0,5s 
+}
+#corescalcfundo button:hover {
+  background-color: #908b96;
+  color: white;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+#corescalcfundo.active {
+  transition: ease-in-out 0,5s 
+}
+
+#corescalcefeito1 {
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 280px;
+  overflow: hidden;
+  display: none;
+}
+
+#corescalcefeito1.active {
+ transition: ease-in-out 0,5s
+}
+
+#corescalcefeito2 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#corescalcefeito2.active {
+ transition: ease-in-out 0,5s
+}
+
+
+#corescalcefeito3 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#corescalcefeito3.active {
+ transition: ease-in-out 0,5s
+}
+
+#coresmeiao {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#coresmeiao.active {
+ transition: ease-in-out 0,5s
+}
+
+
+#coresmeiaoarte1 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 110px;
+  overflow: hidden;
+}
+
+#coresmeiaoarte1.active {
+ transition: ease-in-out 0,5s
+}
+
+#coresmeiaoarte2 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 110px;
+  overflow: hidden;
+}
+
+#coresmeiaoarte2.active {
+ transition: ease-in-out 0,5s
+}
+
+#coresmeiaoarte3 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #9a47ff;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 110px;
+  overflow: hidden;
+}
+
+#coresmeiaoarte3.active {
+ transition: ease-in-out 0,5s
+}
+
+#coresnumero {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 290px;
+  overflow: hidden;
+}
+
+#coresnumerocontorno {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 290px;
+  overflow: hidden;
+}
+
+ 
+
+#coresnumero.active {
+ transition: ease-in-out 0,5s
+}
+
+
+#coresnome {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 290px;
+  overflow: hidden;
+}
+
+#coresnomecontorno {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 150px;
+  width: 290px;
+  overflow: hidden;
+}
+
+ 
+
+#coresnome.active {
+ transition: ease-in-out 0,5s
+}
+
+#coresgola{
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#coresgola.active {
+ transition: ease-in-out 0,5s
+}
+
+
+#corespunho{
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#corespunho.active {
+ transition: ease-in-out 0,5s
+}
+
+
+#corescamfundo {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#corescamfundo.active {
+ transition: ease-in-out 0,5s
+} 
+
+#corescamarte1 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+  width: 290px;
+  overflow: hidden;
+} 
+
+#corescamarte1.active {
+ transition: ease-in-out 0,5s
+} 
+
+#corescamarte2 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+   width: 290px;
+  overflow: hidden;
+} 
+
+#corescamarte2.active {
+ transition: ease-in-out 0,5s
+} 
+
+#corescamarte3 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+   width: 290px;
+  overflow: hidden;
+} 
+
+#corescamarte3.active {
+ transition: ease-in-out 0,5s
+} 
+
+
+#coresmanga {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+   width: 290px;
+  overflow: hidden;
+} 
+
+#corescamanga.active {
+ transition: ease-in-out 0,5s
+}
+
+#coresmangarte1 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+   width: 290px;
+  overflow: hidden;
+}
+
+
+#coresmangarte2 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+   width: 290px;
+  overflow: hidden;
+}
+
+
+#coresmangarte3 {
+  display: none;
+  background-color: #c0c0c0;
+  border: 2px solid #908b96;
+  border-radius: 10px;
+  color: white;
+  height: 170px;
+   width: 290px;
+  overflow: hidden;
+}
+
+
+#corcamisap1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#corcamisap1 {
+  width: 23.3px; 
+  height: 23.3px;
+  transition: 0.7s ease;
+}
+
+#corcamisaefeito1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#corcamisaefeito1 {
+  width: 23.3px; height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+#corcamisaefeito2.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#corcamisaefeito2 {
+  width: 23.3px;
+  height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+#corcamisaefeito3.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#corcamisaefeito3 {
+  width: 23.3px;
+  height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+#cormangap1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#cormangap1 {
+  width: 23.3px;
+  height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+#cormangaefeito1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#cormangaefeito1 {
+  width: 23.3px;
+  height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+#cormangaefeito2.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#cormangaefeito2 {
+  width: 23.3px;
+  height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+#cormangaefeito3.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.4vh;
+height: 3.4vh;  
+}
+
+#cormangaefeito3 {
+  width: 23.3px;
+  height: 23.3px; 
+  transition: 0.7s ease;
+}
+
+
+#cornumerop1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.8vh;
+height: 3.8vh;  
+}
+
+
+#cornumerop1 {
+  width: 30px;
+  height: 30px; 
+  transition: 0.7s ease;
+}
+
+#corcontornonumerop1 {
+  width: 30px;
+  height: 30px; 
+  transition: 0.7s ease;
+}
+
+#corcontornonumerop1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.8vh;
+height: 3.8vh;  
+}
+#cornomep1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.8vh;
+height: 3.8vh;  
+}
+
+#cornomep1 {
+  width: 30px;
+  height: 30px; 
+  transition: 0.7s ease;
+}
+
+#cornomecontornop1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.8vh;
+height: 3.8vh;  
+}
+
+#cornomecontornop1 {
+  width: 30px;
+  height: 30px; 
+  transition: 0.7s ease;
+}
+
+
+
+
+#corpunhop1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.8vh;
+height: 3.8vh;  
+}
+
+#corpunhop1 {
+  width: 30px;
+  height: 30px; 
+  transition: 0.7s ease;
+}
+
+
+#corgolap1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.8vh;
+height: 3.8vh;  
+}
+
+#corgolap1 {
+  width: 30px;
+  height: 30px; 
+  transition: 0.7s ease;
+}
+
+#corcalcaop1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.2vh;
+height: 3.2vh;  
+}
+
+#corcalcaop1 {
+  width: 23px;
+  height: 23px; 
+  transition: 0.7s ease;
+}
+
+#corcalcaoefeito1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.2vh;
+height: 3.2vh;  
+}
+
+#corcalcaoefeito1 {
+  width: 22px;
+  height: 22px; 
+  transition: 0.7s ease;
+}
+
+#corcalcaoefeito2.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.2vh;
+height: 3.2vh;  
+}
+
+#corcalcaoefeito2 {
+  width: 22px;
+  height: 22px; 
+  transition: 0.7s ease;
+}
+
+#corcalcaoefeito3.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.2vh;
+height: 3.2vh;  
+}
+
+#corcalcaoefeito3 {
+  width: 22px;
+  height: 22px; 
+  transition: 0.7s ease;
+}
+
+#cormeiaop1.active {
+border-radius: 20px;
+transition  : all 0.7s ease ;
+width: 3.2vh;
+height: 3.2vh;  
+}
+
+#cormeiaop1 {
+  width: 22px;
+  height: 22px; 
+  transition: 0.7s ease;
+}
